@@ -12,6 +12,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,8 +39,11 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 import com.google.mlkit.vision.face.FaceDetectorOptions;
 
 
+
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -108,13 +113,36 @@ public class MainActivity extends AppCompatActivity {
             if(data!=null){
                 imageUri =data.getData();
                 Toast.makeText(MainActivity.this , "image selected", Toast.LENGTH_SHORT).show();
-                    recognizeFace();
+                convertImageToPdf();
+//                    recognizeFace();
                     recognizeText();
             }
         }else {
             Toast.makeText(MainActivity.this , "image not selected", Toast.LENGTH_SHORT).show();
         }
     }
+    private void convertImageToPdf() {
+            if(imageUri!=null){
+                try {
+                    InputImage inputImage =InputImage.fromFilePath(MainActivity.this,imageUri);
+                    String destinationPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/image_to_pdf.pdf";
+
+                    // Créer un document PDF
+                    String pdfFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/image_to_pdf.pdf";
+
+
+//                    // Ajouter une page au document PDF
+//                    PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(inputImage.getWidth(), inputImage.getHeight(), 1).create();
+//                    PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+//                    Canvas canvas = page.getCanvas();
+
+
+                }catch (IOException e){
+                }
+            }
+    }
+
+
 
     private void recognizeFace() {
         if(imageUri!=null){
@@ -192,12 +220,12 @@ public class MainActivity extends AppCompatActivity {
         if(imageUri!=null){
             try {
                 InputImage inputImage =InputImage.fromFilePath(MainActivity.this,imageUri);
-
                 Task<Text> result =textRecognizer.process(inputImage)
                         .addOnSuccessListener(new OnSuccessListener<Text>() {
                             @Override
                             public void onSuccess(Text texts) {
                                     String recognizeText =texts.getText();
+                                Log.d("MainActivity", recognizeText);
                                     rcgtext.setText(recognizeText);
                             }
                         }).addOnFailureListener(new OnFailureListener() {

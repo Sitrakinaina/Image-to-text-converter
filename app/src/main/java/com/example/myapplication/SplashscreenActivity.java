@@ -15,11 +15,11 @@ public class SplashscreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splashscreen);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
        new Handler().postDelayed(new Runnable() {
            @Override
            public void run() {
-               Intent intent = new Intent(SplashscreenActivity.this , MainActivity.class);
+               Intent intent = new Intent(SplashscreenActivity.this , cardDetector.class);
                startActivity(intent);
                finish();
            }

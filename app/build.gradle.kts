@@ -26,6 +26,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -40,4 +43,9 @@ dependencies {
     implementation("com.github.dhaval2404:imagepicker:2.1")
     implementation("com.google.mlkit:text-recognition:16.0.0")
     implementation("com.google.mlkit:face-detection:16.1.6")
+//    implementation ("com.google.mlkit:object-detection:17.0.1")
+    implementation ("com.github.kerolsafififawzy:Image-To-PdfConverter:1.0.3")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+//    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+//    implementation ("com.squareup.retrofit2:converter-gson:2.5.0")
 }
